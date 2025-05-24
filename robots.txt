@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://example-user.github.io/example-repo/sitemap.xml
+Sitemap: https://maru-tk-dev.github.io/tickle_brothel/sitemap.xml
