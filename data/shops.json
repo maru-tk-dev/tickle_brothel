@@ -2,10 +2,19 @@
   {
     "id": "shop001",
     "name": "くすぐり宅配便",
-    "description": "東京渋谷。日本唯一のくすぐりデリバリーエステ。くすぐり好きの欲望を誰にも遠慮する事なく「ぶつけて」、「爆発させて」、「発散させる」ことができる夢のお店♬",
+    "description": "東京渋谷。昔はかわいい子がいっぱいいたが、今は少し在籍数が少ないかなー。。でも、くすぐりプレイしたいなら一番無難なところ。60分22,000円からの料金で、電マも使える。ヌキあり。",
     "address_general": "東京都渋谷区",
-    "tags": ["デリバリーエステ", "くすぐり"],
-    "image_url": "https://kusuguritakuhaibin.com/wp-content/themes/SWELL_CHILD/logo.png",
+    "tags": ["東京", "ぐりぐら", "ヌキあり","電マ"],
+    "image_url": "images/shop001_logo.png",
     "website_url": "https://kusuguritakuhaibin.com/"
+  },
+  {
+    "id": "shop002",
+    "name": "とりはだ",
+    "description": "東京渋谷。パウダーとか使ったサワサワ系が好きならここ。ぐらのみ。60分17,000円からの料金で、ヌキあり。",
+    "address_general": "日暮里",
+    "tags": ["東京", "ぐら", "ヌキあり"],
+    "image_url": "images/shop002_logo.png",
+    "website_url": "https://torihadaa.com/home/"
   }
 ]

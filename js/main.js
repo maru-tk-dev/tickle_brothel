@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             shopCard.className = 'shop-card';
             shopCard.innerHTML = `
                 <h3><a href="shop-detail.html?id=${shop.id}">${shop.name}</a></h3>
-                <img src="${shop.image_url || 'images/shop_placeholder.png'}" alt="${shop.name}" style="width:100%;max-width:300px;">
+                <img src="${shop.image_url || 'images/shop_placeholder.png'}" alt="${shop.name}" style="width:100%;max-width:300px;height:auto;object-fit:contain;">
                 <p>${shop.description}</p>
                 <p class="address">場所: ${shop.address_general}</p>
                 <div class="tags">タグ: ${Array.isArray(shop.tags) ? shop.tags.join(', ') : 'タグなし'}</div>
