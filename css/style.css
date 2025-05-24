@@ -234,3 +234,53 @@ footer p {
         grid-template-columns: 1fr; /* Single column layout on very small screens */
     }
 }
+
+/* Styles for shop-detail.html */
+#shop-detail-container {
+    background-color: #fff; /* White background for the detail section */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#shop-detail-container h2 {
+    color: #333; /* Darker heading color for shop name */
+}
+
+#shop-detail-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+#shop-individuals-container {
+    background-color: #f9f9f9; /* Slightly different background for staff section */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#shop-individuals-container h2 {
+    color: #444; /* Heading color for staff section */
+    margin-bottom: 15px;
+}
+
+#individuals-list .individual-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+#individuals-list .individual-card h3 {
+    margin-top: 0;
+    color: #555;
+}
+
+#individuals-list .individual-card img {
+    border-radius: 4px;
+    margin-bottom: 10px;
+}

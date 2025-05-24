@@ -1,11 +1,11 @@
 [
   {
     "id": "shop001",
-    "name": "くすぐり天国",
-    "description": "都心に佇む隠れ家のようなお店。極上のくすぐり体験をあなたに。",
-    "address_general": "東京都内某所",
-    "tags": ["ソフト", "手コキ", "オイル"],
-    "image_url": "images/shop_placeholder.png",
-    "website_url": null
+    "name": "くすぐり宅配便",
+    "description": "東京渋谷。日本唯一のくすぐりデリバリーエステ。くすぐり好きの欲望を誰にも遠慮する事なく「ぶつけて」、「爆発させて」、「発散させる」ことができる夢のお店♬",
+    "address_general": "東京都渋谷区",
+    "tags": ["デリバリーエステ", "くすぐり"],
+    "image_url": "https://kusuguritakuhaibin.com/wp-content/themes/SWELL_CHILD/logo.png",
+    "website_url": "https://kusuguritakuhaibin.com/"
   }
 ]
