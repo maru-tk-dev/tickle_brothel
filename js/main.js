@@ -55,12 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const shopCard = document.createElement('div');
             shopCard.className = 'shop-card';
             shopCard.innerHTML = `
-                <h3>${shop.name}</h3>
+                <h3><a href="shop-detail.html?id=${shop.id}">${shop.name}</a></h3>
                 <img src="${shop.image_url || 'images/shop_placeholder.png'}" alt="${shop.name}" style="width:100%;max-width:300px;">
                 <p>${shop.description}</p>
                 <p class="address">場所: ${shop.address_general}</p>
-                <div class="tags">タグ: ${shop.tags.join(', ')}</div>
+                <div class="tags">タグ: ${Array.isArray(shop.tags) ? shop.tags.join(', ') : 'タグなし'}</div>
                 ${shop.website_url ? `<p><a href="${shop.website_url}" target="_blank" rel="noopener noreferrer">ウェブサイトを見る</a></p>` : ''}
+                <p><a href="shop-detail.html?id=${shop.id}">詳細を見る</a></p> 
             `;
             shopsContainer.appendChild(shopCard);
         });
