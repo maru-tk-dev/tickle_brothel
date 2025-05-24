@@ -3,24 +3,8 @@
     "id": "ind001",
     "shop_id": "shop001",
     "name": "さくら",
-    "bio": "優しい笑顔と繊細な指使いで、あなたをくすぐりの虜にします。初心者さん大歓迎！",
+    "bio": "仮。管理人の感想追加していく予定",
     "tags": ["初心者向け", "脇", "足裏"],
     "image_url": "images/individual_placeholder1.png"
-  },
-  {
-    "id": "ind002",
-    "shop_id": "shop001",
-    "name": "カエデ",
-    "bio": "ちょっと強めの刺激がお好みなら私にお任せ。あなたの限界を引き出します。",
-    "tags": ["強め", "拘束", "電気"],
-    "image_url": "images/individual_placeholder2.png"
-  },
-  {
-    "id": "ind003",
-    "shop_id": "shop001",
-    "name": "ユキ",
-    "bio": "羽やブラシを使ったソフトなくすぐりが得意です。リラックスしてお楽しみください。",
-    "tags": ["羽", "ブラシ", "リラックス"],
-    "image_url": "images/individual_placeholder3.png"
   }
 ]
