@@ -2,8 +2,8 @@
   {
     "id": "shop001",
     "name": "くすぐり宅配便",
-    "description": "東京渋谷。昔はかわいい子がいっぱいいたが、今は少し在籍数が少ないかなー。。でも、くすぐりプレイしたいなら一番無難なところ。60分22,000円からの料金で、電マも使える。ヌキあり。",
-    "address_general": "東京都渋谷区",
+    "description": "東京渋谷。昔はかわいい子がいっぱいいたが、今は少し在籍数が少ない。。でも、くすぐりプレイしたいなら一番無難なところ。60分22,000円からの料金で、電マも使える。ヌキあり。",
+    "address_general": "渋谷",
     "tags": ["東京", "ぐりぐら", "ヌキあり","電マ"],
     "image_url": "images/shop001_logo.png",
     "website_url": "https://kusuguritakuhaibin.com/"
@@ -12,9 +12,72 @@
     "id": "shop002",
     "name": "とりはだ",
     "description": "東京渋谷。パウダーとか使ったサワサワ系が好きならここ。ぐらのみ。60分17,000円からの料金で、ヌキあり。",
-    "address_general": "日暮里",
+    "address_general": "渋谷",
     "tags": ["東京", "ぐら", "ヌキあり"],
     "image_url": "images/shop002_logo.png",
     "website_url": "https://torihadaa.com/home/"
+  },
+  {
+    "id": "shop003",
+    "name": "ぐりぐらんど",
+    "description": "東京新宿。サイトの紹介写真に足裏を使うことで話題になった。60分18,000円でヌキあり。拘束具とかがオプション扱いのため、つけるとくすぐり宅配便と値段はあまり変わらない。エロ系は消極的な子が多い印象。",
+    "address_general": "新宿",
+    "tags": ["東京", "ぐりぐら", "ヌキあり"],
+    "image_url": "images/shop003_logo.png",
+    "website_url": "https://guriguland.com/home/index.html"
+  },
+  {
+    "id": "shop004",
+    "name": "桃色ハンズ",
+    "description": "大阪日本橋。オナクラ。基本受けのみだけど、3,000円オプションで足裏くすぐりがある。全員くすぐりができるわけじゃないのでホームページ要確認。60分12,000円でヌキあり。基本はヌキのほうがメインだと思う。ハードじゃなくてイチャイチャ系が好きな人には、かわいい子も多いし、値段も安いのでいいかも。",
+    "address_general": "大阪日本橋",
+    "tags": ["大阪", "ぐりぐら", "ヌキあり"],
+    "image_url": "images/shop004_logo.png",
+    "website_url": "https://www.momohan.com/home/"
+  },
+  {
+    "id": "shop005",
+    "name": "J1",
+    "description": "大阪日本橋。メンズエステ。90分17,000円。管理人は行ったことないので詳細不明。",
+    "address_general": "大阪日本橋",
+    "tags": ["大阪", "ぐら"],
+    "image_url": "images/shop005_logo.png",
+    "website_url": "https://esthe-j1.com/therapist"
+  },
+  {
+    "id": "shop006",
+    "name": "涼泉",
+    "description": "名古屋。SM店。60分26,000円 M女さんが多いSM高級店。かわいい子やいい子が多い。くすぐりOKな子が多い。たまに日記でくすぐりについて書いてる子がいる。ぐりをメインにしたい人はここ。",
+    "address_general": "名古屋",
+    "tags": ["名古屋", "ぐりぐら", "ヌキあり","電マ","拘束"],
+    "image_url": "images/shop006_logo.png",
+    "website_url": "https://www.ryousen.com/main.php"
+  },
+  {
+    "id": "shop007",
+    "name": "Studio K",
+    "description": "名古屋。SM店。60分22,000円 女王様が多い店舗型SM店。ホテル代がかからないので総合的にみるとそんなに高くない。ほとんどが受けのみ。たまにどちらもできる人もいる。完全拘束でハードなぐらをされたいならここ。",
+    "address_general": "名古屋",
+    "tags": ["名古屋", "ぐりぐら", "ヌキあり","電マ","拘束"],
+    "image_url": "images/shop007_logo.png",
+    "website_url": "http://studio-k.g-f-k.com/"
+  },
+    {
+    "id": "shop008",
+    "name": "名古屋痴女性感フェチ倶楽部",
+    "description": "名古屋。デリヘル。60分17,600円+ランクによる指名料。 ランクによるが、意外と高くなる。ぐらのみ。人によって傾向は様々、ハードからいちゃいちゃ、催眠交えたものまでいろんな人がいる。",
+    "address_general": "名古屋",
+    "tags": ["名古屋", "ぐら", "ヌキあり"],
+    "image_url": "images/shop008_logo.png",
+    "website_url": "https://star-group.co.jp/chijofeti/nagoya"
+  },
+  {
+    "id": "shop009",
+    "name": "ふるり",
+    "description": "名古屋。メンズエステ。70分14,000円。マンションの個室に入るタイプのメンズエステ。すぐりのくすぐりという語呂がいい。フェザータッチ好きで、かわいい子がいい人はここ。当然ヌキはない。",
+    "address_general": "名古屋",
+    "tags": ["名古屋", "ぐら"],
+    "image_url": "images/shop009_logo.png",
+    "website_url": "https://fururi-nagoya.com/"
   }
 ]
