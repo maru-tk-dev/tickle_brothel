@@ -74,5 +74,33 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch('data/shops.json')
+          .then(r => r.json())
+          .then(shops => {
+            shops.forEach(shop => {
+              const data = {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                "name": shop.name,
+                "description": shop.description,
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": shop.address_general
+                }
+              };
+              if (shop.website_url) data.url = shop.website_url;
+              if (shop.image_url) data.image = shop.image_url;
+
+              const script = document.createElement('script');
+              script.type = 'application/ld+json';
+              script.textContent = JSON.stringify(data);
+              document.head.appendChild(script);
+            });
+          })
+          .catch(e => console.error('Failed to load structured data', e));
+      });
+    </script>
 </body>
 </html>
