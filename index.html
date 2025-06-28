@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>くすぐりフェチ専科</title>
     <link rel="stylesheet" href="css/style.css">
-    <meta name="description" content="くすぐりフェチ専科へようこそ！管理人が利用したお店の感想などを書いています。くすぐり好きの人が風俗店選びで迷ったときに参考になるサイトを目指しています！">
-    <meta name="keywords" content="くすぐり, フェティシズム, フェチ, 専門, お店, ショップ, 女の子, 紹介サイト, ランキング, レビュー, tickling, fetish, specialty, shop, girls, review site">
+    <meta name="description" content="くすぐりフェチ専科へようこそ！管理人が利用したお店の感想などを書いています。東京、大阪、名古屋など主要都市のくすぐり風俗店選びで迷ったときに参考になるサイトを目指しています！">
+    <meta name="keywords" content="くすぐり, 風俗, 名古屋, 東京, 大阪, 札幌, 福岡, フェティシズム, フェチ, 専門, お店, ショップ, 女の子, 紹介サイト, ランキング, レビュー, tickling, fetish, specialty, shop, girls, review site">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="くすぐりフェチ専科 - あなたの究極の体験を見つけよう">
     <meta property="og:description" content="日本全国のくすぐり専門店の情報サイト。お店や女の子の情報を検索し、最高の体験を発見。">
@@ -77,5 +77,33 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch('data/shops.json')
+          .then(r => r.json())
+          .then(shops => {
+            shops.forEach(shop => {
+              const data = {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                "name": shop.name,
+                "description": shop.description,
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": shop.address_general
+                }
+              };
+              if (shop.website_url) data.url = shop.website_url;
+              if (shop.image_url) data.image = shop.image_url;
+
+              const script = document.createElement('script');
+              script.type = 'application/ld+json';
+              script.textContent = JSON.stringify(data);
+              document.head.appendChild(script);
+            });
+          })
+          .catch(e => console.error('Failed to load structured data', e));
+      });
+    </script>
 </body>
 </html>
