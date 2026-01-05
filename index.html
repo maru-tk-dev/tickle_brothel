@@ -40,13 +40,33 @@
             <h2>絞り込み検索</h2>
             <div id="tag-filters-shops-container">
                 <h3>お店のタグ:</h3>
-                <!-- Shop tags will be dynamically populated here by JS -->
-                <div id="shop-tags" class="tag-container"></div>
+                <div id="shop-tags" class="tag-container">
+                    {% assign all_shop_tags = "" | split: "" %}
+                    {% for shop in site.data.shops %}
+                        {% if shop.tags %}
+                            {% assign all_shop_tags = all_shop_tags | concat: shop.tags %}
+                        {% endif %}
+                    {% endfor %}
+                    {% assign unique_shop_tags = all_shop_tags | uniq | sort %}
+                    {% for tag in unique_shop_tags %}
+                        <button class="tag-button" data-tag="{{ tag }}">{{ tag }}</button>
+                    {% endfor %}
+                </div>
             </div>
             <div id="tag-filters-individuals-container">
                 <h3>女の子のタグ:</h3>
-                <!-- Individual tags will be dynamically populated here by JS -->
-                <div id="individual-tags" class="tag-container"></div>
+                <div id="individual-tags" class="tag-container">
+                    {% assign all_ind_tags = "" | split: "" %}
+                    {% for ind in site.data.individuals %}
+                        {% if ind.tags %}
+                            {% assign all_ind_tags = all_ind_tags | concat: ind.tags %}
+                        {% endif %}
+                    {% endfor %}
+                    {% assign unique_ind_tags = all_ind_tags | uniq | sort %}
+                    {% for tag in unique_ind_tags %}
+                        <button class="tag-button" data-tag="{{ tag }}">{{ tag }}</button>
+                    {% endfor %}
+                </div>
             </div>
             <button id="clear-filters-button">絞り込みクリア</button>
         </section>
@@ -54,16 +74,34 @@
         <section id="shops-listings">
             <h2>お店一覧</h2>
             <div id="shops-container">
-                <!-- Shop cards will be dynamically populated here by JS -->
-                <p>お店の情報を読み込んでいます...</p>
+                {% for shop in site.data.shops %}
+                <div class="shop-card" data-id="{{ shop.id }}" data-tags="{{ shop.tags | join: ',' }}">
+                    <h3><a href="shop-detail.html?id={{ shop.id }}">{{ shop.name }}</a></h3>
+                    <img src="{{ shop.image_url | default: 'images/shop_placeholder.png' }}" alt="{{ shop.name }}" style="width:100%;max-width:300px;height:auto;object-fit:contain;">
+                    <p>{{ shop.description }}</p>
+                    <p class="address">場所: {{ shop.address_general }}</p>
+                    <div class="tags">タグ: {{ shop.tags | join: ', ' }}</div>
+                    {% if shop.website_url %}
+                    <p><a href="{{ shop.website_url }}" target="_blank" rel="noopener noreferrer">ウェブサイトを見る</a></p>
+                    {% endif %}
+                    <p><a href="shop-detail.html?id={{ shop.id }}">詳細を見る</a></p> 
+                </div>
+                {% endfor %}
             </div>
         </section>
 
         <section id="individuals-listings">
             <h2>女の子一覧</h2>
             <div id="individuals-container">
-                <!-- Individual cards will be dynamically populated here by JS -->
-                <p>女の子の情報を読み込んでいます...</p>
+                {% for individual in site.data.individuals %}
+                {% assign shop = site.data.shops | where: "id", individual.shop_id | first %}
+                <div class="individual-card" data-shop-id="{{ individual.shop_id }}" data-tags="{{ individual.tags | join: ',' }}">
+                    <h3>{{ individual.name }} ({{ shop.name | default: '不明なお店' }})</h3>
+                    <img src="{{ individual.image_url | default: 'images/individual_placeholder.png' }}" alt="{{ individual.name }}" style="width:100%;max-width:200px;">
+                    <p>{{ individual.bio }}</p>
+                    <div class="tags">タグ: {{ individual.tags | join: ', ' }}</div>
+                </div>
+                {% endfor %}
             </div>
         </section>
     </main>
@@ -74,33 +112,23 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        fetch('data/shops.json')
-          .then(r => r.json())
-          .then(shops => {
-            shops.forEach(shop => {
-              const data = {
-                "@context": "https://schema.org",
-                "@type": "LocalBusiness",
-                "name": shop.name,
-                "description": shop.description,
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": shop.address_general
-                }
-              };
-              if (shop.website_url) data.url = shop.website_url;
-              if (shop.image_url) data.image = shop.image_url;
-
-              const script = document.createElement('script');
-              script.type = 'application/ld+json';
-              script.textContent = JSON.stringify(data);
-              document.head.appendChild(script);
-            });
-          })
-          .catch(e => console.error('Failed to load structured data', e));
-      });
+    <script type="application/ld+json">
+    [
+    {% for shop in site.data.shops %}
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "{{ shop.name }}",
+        "description": "{{ shop.description }}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ shop.address_general }}"
+        }
+        {% if shop.website_url %}, "url": "{{ shop.website_url }}"{% endif %}
+        {% if shop.image_url %}, "image": "{{ shop.image_url }}"{% endif %}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+    ]
     </script>
 </body>
 </html>

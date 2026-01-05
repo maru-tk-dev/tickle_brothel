@@ -21,15 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    async function fetchAndDisplayShopDetails() {
+    function displayShopDetails() {
         try {
-            const shopsResponse = await fetch('data/shops.json');
-            if (!shopsResponse.ok) throw new Error(`HTTP error! status: ${shopsResponse.status} while fetching shops.json`);
-            const allShops = await shopsResponse.json();
+            // Use global variables injected by Jekyll (Liquid) in the HTML
+            const allShops = window.allShopsData;
+            const allIndividuals = window.allIndividualsData;
 
-            const individualsResponse = await fetch('data/individuals.json');
-            if (!individualsResponse.ok) throw new Error(`HTTP error! status: ${individualsResponse.status} while fetching individuals.json`);
-            const allIndividuals = await individualsResponse.json();
+            if (!allShops || !allIndividuals) {
+                throw new Error("Data not loaded properly from global variables.");
+            }
 
             const shop = allShops.find(s => s.id === shopId);
 
@@ -80,11 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Shop details and individuals rendered for shop ID:", shopId);
 
         } catch (error) {
-            console.error("Failed to fetch or display shop details:", error);
+            console.error("Failed to display shop details:", error);
             if (shopNameElement) shopNameElement.textContent = '情報の読み込みに失敗しました。';
             if (individualsListElement) individualsListElement.innerHTML = `<p>情報の読み込みに失敗しました。詳細: ${error.message}</p>`;
         }
     }
 
-    fetchAndDisplayShopDetails();
+    displayShopDetails();
 });
