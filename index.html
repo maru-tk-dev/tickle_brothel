@@ -1,12 +1,17 @@
+---
+---
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>くすぐりフェチ専科</title>
     <link rel="stylesheet" href="css/style.css">
-    <meta name="description" content="くすぐりフェチ専科へようこそ！管理人が利用したお店の感想などを書いています。東京、大阪、名古屋など主要都市のくすぐり風俗店選びで迷ったときに参考になるサイトを目指しています！">
-    <meta name="keywords" content="くすぐり, 風俗, 名古屋, 東京, 大阪, 札幌, 福岡, フェティシズム, フェチ, 専門, お店, ショップ, 女の子, 紹介サイト, ランキング, レビュー, tickling, fetish, specialty, shop, girls, review site">
+    <meta name="description"
+        content="くすぐりフェチ専科へようこそ！管理人が利用したお店の感想などを書いています。東京、大阪、名古屋など主要都市のくすぐり風俗店選びで迷ったときに参考になるサイトを目指しています！">
+    <meta name="keywords"
+        content="くすぐり, 風俗, 名古屋, 東京, 大阪, 札幌, 福岡, フェティシズム, フェチ, 専門, お店, ショップ, 女の子, 紹介サイト, ランキング, レビュー, tickling, fetish, specialty, shop, girls, review site">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="くすぐりフェチ専科 - あなたの究極の体験を見つけよう">
     <meta property="og:description" content="日本全国のくすぐり専門店の情報サイト。お店や女の子の情報を検索し、最高の体験を発見。">
@@ -14,12 +19,13 @@
     <meta property="og:url" content="https://maru-tk-dev.github.io/tickle_brothel/">
     <meta property="og:image" content="images/og_placeholder_image.png">
 </head>
+
 <body>
     <noscript>
-      <div style="background-color: #ffffe0; padding: 1em; text-align: center; color: #000;">
-        <strong>このウェブサイトの全機能を利用するためには、JavaScriptを有効にしてください。</strong>
-        <p>お使いのブラウザでJavaScriptを有効にする方法については、検索エンジンで「(お使いのブラウザ名) JavaScript 有効」と検索してください。</p>
-      </div>
+        <div style="background-color: #ffffe0; padding: 1em; text-align: center; color: #000;">
+            <strong>このウェブサイトの全機能を利用するためには、JavaScriptを有効にしてください。</strong>
+            <p>お使いのブラウザでJavaScriptを有効にする方法については、検索エンジンで「(お使いのブラウザ名) JavaScript 有効」と検索してください。</p>
+        </div>
     </noscript>
     <header>
         <h1>くすぐりフェチ専科</h1>
@@ -43,13 +49,13 @@
                 <div id="shop-tags" class="tag-container">
                     {% assign all_shop_tags = "" | split: "" %}
                     {% for shop in site.data.shops %}
-                        {% if shop.tags %}
-                            {% assign all_shop_tags = all_shop_tags | concat: shop.tags %}
-                        {% endif %}
+                    {% if shop.tags %}
+                    {% assign all_shop_tags = all_shop_tags | concat: shop.tags %}
+                    {% endif %}
                     {% endfor %}
                     {% assign unique_shop_tags = all_shop_tags | uniq | sort %}
                     {% for tag in unique_shop_tags %}
-                        <button class="tag-button" data-tag="{{ tag }}">{{ tag }}</button>
+                    <button class="tag-button" data-tag="{{ tag }}">{{ tag }}</button>
                     {% endfor %}
                 </div>
             </div>
@@ -58,13 +64,13 @@
                 <div id="individual-tags" class="tag-container">
                     {% assign all_ind_tags = "" | split: "" %}
                     {% for ind in site.data.individuals %}
-                        {% if ind.tags %}
-                            {% assign all_ind_tags = all_ind_tags | concat: ind.tags %}
-                        {% endif %}
+                    {% if ind.tags %}
+                    {% assign all_ind_tags = all_ind_tags | concat: ind.tags %}
+                    {% endif %}
                     {% endfor %}
                     {% assign unique_ind_tags = all_ind_tags | uniq | sort %}
                     {% for tag in unique_ind_tags %}
-                        <button class="tag-button" data-tag="{{ tag }}">{{ tag }}</button>
+                    <button class="tag-button" data-tag="{{ tag }}">{{ tag }}</button>
                     {% endfor %}
                 </div>
             </div>
@@ -77,14 +83,15 @@
                 {% for shop in site.data.shops %}
                 <div class="shop-card" data-id="{{ shop.id }}" data-tags="{{ shop.tags | join: ',' }}">
                     <h3><a href="shop-detail.html?id={{ shop.id }}">{{ shop.name }}</a></h3>
-                    <img src="{{ shop.image_url | default: 'images/shop_placeholder.png' }}" alt="{{ shop.name }}" style="width:100%;max-width:300px;height:auto;object-fit:contain;">
+                    <img src="{{ shop.image_url | default: 'images/shop_placeholder.png' }}" alt="{{ shop.name }}"
+                        style="width:100%;max-width:300px;height:auto;object-fit:contain;">
                     <p>{{ shop.description }}</p>
                     <p class="address">場所: {{ shop.address_general }}</p>
                     <div class="tags">タグ: {{ shop.tags | join: ', ' }}</div>
                     {% if shop.website_url %}
                     <p><a href="{{ shop.website_url }}" target="_blank" rel="noopener noreferrer">ウェブサイトを見る</a></p>
                     {% endif %}
-                    <p><a href="shop-detail.html?id={{ shop.id }}">詳細を見る</a></p> 
+                    <p><a href="shop-detail.html?id={{ shop.id }}">詳細を見る</a></p>
                 </div>
                 {% endfor %}
             </div>
@@ -95,9 +102,11 @@
             <div id="individuals-container">
                 {% for individual in site.data.individuals %}
                 {% assign shop = site.data.shops | where: "id", individual.shop_id | first %}
-                <div class="individual-card" data-shop-id="{{ individual.shop_id }}" data-tags="{{ individual.tags | join: ',' }}">
+                <div class="individual-card" data-shop-id="{{ individual.shop_id }}"
+                    data-tags="{{ individual.tags | join: ',' }}">
                     <h3>{{ individual.name }} ({{ shop.name | default: '不明なお店' }})</h3>
-                    <img src="{{ individual.image_url | default: 'images/individual_placeholder.png' }}" alt="{{ individual.name }}" style="width:100%;max-width:200px;">
+                    <img src="{{ individual.image_url | default: 'images/individual_placeholder.png' }}"
+                        alt="{{ individual.name }}" style="width:100%;max-width:200px;">
                     <p>{{ individual.bio }}</p>
                     <div class="tags">タグ: {{ individual.tags | join: ', ' }}</div>
                 </div>
@@ -131,4 +140,5 @@
     ]
     </script>
 </body>
+
 </html>
