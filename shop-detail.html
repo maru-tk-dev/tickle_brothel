@@ -7,8 +7,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>お店の詳細 - くすぐりフェチ専科</title>
+  <meta id="meta-description" name="description" content="くすぐりフェチ専科に掲載している店舗の詳細情報と体験レビューです。">
+  <meta id="meta-robots" name="robots" content="index, follow">
+  <link id="canonical-url" rel="canonical">
+  <meta id="og-title" property="og:title" content="お店の詳細 | くすぐりフェチ専科">
+  <meta id="og-description" property="og:description" content="くすぐりフェチ専科に掲載している店舗の詳細情報と体験レビューです。">
+  <meta property="og:type" content="article">
+  <meta id="og-url" property="og:url" content="https://maru-tk-dev.github.io/tickle_brothel/shop-detail.html">
+  <meta property="og:image" content="https://maru-tk-dev.github.io/tickle_brothel/images/og.png">
+  <meta property="og:image:width" content="1729">
+  <meta property="og:image:height" content="910">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta id="twitter-title" name="twitter:title" content="お店の詳細 | くすぐりフェチ専科">
+  <meta id="twitter-description" name="twitter:description" content="くすぐりフェチ専科に掲載している店舗の詳細情報と体験レビューです。">
+  <meta name="twitter:image" content="https://maru-tk-dev.github.io/tickle_brothel/images/og.png">
   <link rel="stylesheet" href="css/style.css">
-  <meta name="robots" content="index, follow">
 </head>
 
 <body>
@@ -38,7 +51,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 くすぐりフェチ専科. All rights reserved.</p>
+    <p>&copy; 2026 くすぐりフェチ専科. All rights reserved.</p>
   </footer>
 
   <script>
@@ -60,13 +73,15 @@
         "@type": "LocalBusiness",
         "name": shop.name,
         "description": shop.description,
+        "url": window.location.href,
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": shop.address_general
+          "addressLocality": shop.address_general,
+          "addressCountry": "JP"
         }
       };
-      if (shop.website_url) data.url = shop.website_url;
-      if (shop.image_url) data.image = shop.image_url;
+      if (shop.website_url) data.sameAs = shop.website_url;
+      if (shop.image_url) data.image = new URL(shop.image_url, document.baseURI).href;
 
       const script = document.createElement('script');
       script.type = 'application/ld+json';
