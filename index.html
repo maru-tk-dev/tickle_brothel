@@ -6,18 +6,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>くすぐりフェチ専科</title>
+    <title>くすぐり風俗店レビュー｜東京・大阪・名古屋 | くすぐりフェチ専科</title>
     <link rel="stylesheet" href="css/style.css">
     <meta name="description"
         content="くすぐりフェチ専科へようこそ！管理人が利用したお店の感想などを書いています。東京、大阪、名古屋など主要都市のくすぐり風俗店選びで迷ったときに参考になるサイトを目指しています！">
-    <meta name="keywords"
-        content="くすぐり, 風俗, 名古屋, 東京, 大阪, 札幌, 福岡, フェティシズム, フェチ, 専門, お店, ショップ, 女の子, 紹介サイト, ランキング, レビュー, tickling, fetish, specialty, shop, girls, review site">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="くすぐりフェチ専科 - あなたの究極の体験を見つけよう">
+    <link rel="canonical" href="https://maru-tk-dev.github.io/tickle_brothel/">
+    <meta property="og:title" content="くすぐり風俗店レビュー｜東京・大阪・名古屋 | くすぐりフェチ専科">
     <meta property="og:description" content="日本全国のくすぐり専門店の情報サイト。お店や女の子の情報を検索し、最高の体験を発見。">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://maru-tk-dev.github.io/tickle_brothel/">
-    <meta property="og:image" content="images/og_placeholder_image.png">
+    <meta property="og:image" content="https://maru-tk-dev.github.io/tickle_brothel/images/og.png">
+    <meta property="og:image:width" content="1729">
+    <meta property="og:image:height" content="910">
+    <meta property="og:image:alt" content="くすぐりフェチ専科 全国のくすぐり専門店・体験レビュー">
+    <meta property="og:site_name" content="くすぐりフェチ専科">
+    <meta property="og:locale" content="ja_JP">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="くすぐり風俗店レビュー｜東京・大阪・名古屋 | くすぐりフェチ専科">
+    <meta name="twitter:description" content="日本全国のくすぐり専門店の情報と管理人による体験レビューを掲載しています。">
+    <meta name="twitter:image" content="https://maru-tk-dev.github.io/tickle_brothel/images/og.png">
+    <meta name="twitter:image:alt" content="くすぐりフェチ専科 全国のくすぐり専門店・体験レビュー">
 </head>
 
 <body>
@@ -38,7 +47,7 @@
 
     <main>
         <section id="introduction">
-            <h2>はじめに</h2>
+            <h2>東京・大阪・名古屋のくすぐり風俗店レビュー</h2>
             <p>管理人が利用したお店の感想などを書いています。くすぐり好きの人が風俗店選びで迷ったときに参考になるサイトを目指しています！</p>
         </section>
 
@@ -84,6 +93,7 @@
                 <div class="shop-card" data-id="{{ shop.id }}" data-tags="{{ shop.tags | join: ',' }}">
                     <h3><a href="shop-detail.html?id={{ shop.id }}">{{ shop.name }}</a></h3>
                     <img src="{{ shop.image_url | default: 'images/shop_placeholder.png' }}" alt="{{ shop.name }}"
+                        loading="lazy" decoding="async"
                         style="width:100%;max-width:300px;height:auto;object-fit:contain;">
                     <p>{{ shop.description }}</p>
                     <p class="address">場所: {{ shop.address_general }}</p>
@@ -106,7 +116,7 @@
                     data-tags="{{ individual.tags | join: ',' }}">
                     <h3>{{ individual.name }} ({{ shop.name | default: '不明なお店' }})</h3>
                     <img src="{{ individual.image_url | default: 'images/individual_placeholder.png' }}"
-                        alt="{{ individual.name }}" style="width:100%;max-width:200px;">
+                        alt="{{ individual.name }}" loading="lazy" decoding="async" style="width:100%;max-width:200px;">
                     <p>{{ individual.bio }}</p>
                     <div class="tags">タグ: {{ individual.tags | join: ', ' }}</div>
                 </div>
@@ -116,28 +126,37 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 くすぐりフェチ専科. All rights reserved.</p>
-        <p>AIクローラーフレンドリーサイト (詳細はrobots.txtをご確認ください)</p>
+        <p>&copy; 2026 くすぐりフェチ専科. All rights reserved.</p>
     </footer>
 
     <script src="js/main.js"></script>
     <script type="application/ld+json">
-    [
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "くすぐり専門店一覧",
+      "itemListElement": [
     {% for shop in site.data.shops %}
       {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "{{ shop.name }}",
-        "description": "{{ shop.description }}",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "{{ shop.address_general }}"
+        "@type": "ListItem",
+        "position": {{ forloop.index }},
+        "item": {
+          "@type": "LocalBusiness",
+          "name": {{ shop.name | jsonify }},
+          "description": {{ shop.description | jsonify }},
+          "url": {{ site.url | append: site.baseurl | append: '/shop-detail.html?id=' | append: shop.id | jsonify }},
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": {{ shop.address_general | jsonify }},
+            "addressCountry": "JP"
+          },
+          "image": {{ shop.image_url | absolute_url | jsonify }}
+          {% if shop.website_url %}, "sameAs": {{ shop.website_url | jsonify }}{% endif %}
         }
-        {% if shop.website_url %}, "url": "{{ shop.website_url }}"{% endif %}
-        {% if shop.image_url %}, "image": "{{ shop.image_url }}"{% endif %}
       }{% unless forloop.last %},{% endunless %}
     {% endfor %}
-    ]
+      ]
+    }
     </script>
 </body>
 

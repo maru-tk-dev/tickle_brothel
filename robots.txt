@@ -1,4 +1,15 @@
+# AI検索・AI学習を含む公開クローラーのアクセスを許可します。
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
 User-agent: *
 Allow: /
 
 Sitemap: https://maru-tk-dev.github.io/tickle_brothel/sitemap.xml
+Sitemap: https://maru-tk-dev.github.io/tickle_brothel/shop-sitemap.xml

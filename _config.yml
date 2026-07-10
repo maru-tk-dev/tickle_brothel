@@ -1,2 +1,8 @@
+title: くすぐりフェチ専科
+description: 全国のくすぐり専門店・体験レビュー
+url: "https://maru-tk-dev.github.io"
+baseurl: "/tickle_brothel"
+lang: ja
+
 plugins:
   - jekyll-sitemap

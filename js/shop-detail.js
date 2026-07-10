@@ -10,12 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const shopWebsiteElement = document.getElementById('shop-website');
     const individualsListElement = document.getElementById('individuals-list');
     const pageTitle = document.querySelector('title');
+    const metaDescription = document.getElementById('meta-description');
+    const metaRobots = document.getElementById('meta-robots');
+    const canonicalUrl = document.getElementById('canonical-url');
+    const ogTitle = document.getElementById('og-title');
+    const ogDescription = document.getElementById('og-description');
+    const ogUrl = document.getElementById('og-url');
+    const twitterTitle = document.getElementById('twitter-title');
+    const twitterDescription = document.getElementById('twitter-description');
 
     // Get shop ID from URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const shopId = urlParams.get('id');
 
     if (!shopId) {
+        if (metaRobots) metaRobots.content = 'noindex, follow';
         if (shopNameElement) shopNameElement.textContent = 'お店のIDが見つかりません。';
         console.error("Shop ID not found in URL parameters.");
         return;
@@ -34,13 +43,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const shop = allShops.find(s => s.id === shopId);
 
             if (!shop) {
+                if (metaRobots) metaRobots.content = 'noindex, follow';
                 if (shopNameElement) shopNameElement.textContent = 'お店が見つかりません。';
                 console.error("Shop not found for ID:", shopId);
                 return;
             }
 
             // Populate shop details
-            if (pageTitle) pageTitle.textContent = `${shop.name} - お店の詳細 | くすぐりフェチ専科`;
+            const detailTitle = `${shop.name} - お店の詳細 | くすぐりフェチ専科`;
+            const detailUrl = new URL(window.location.pathname, window.location.origin);
+            detailUrl.searchParams.set('id', shop.id);
+
+            if (pageTitle) pageTitle.textContent = detailTitle;
+            if (metaRobots) metaRobots.content = 'index, follow';
+            if (metaDescription) metaDescription.content = shop.description;
+            if (canonicalUrl) canonicalUrl.href = detailUrl.href;
+            if (ogTitle) ogTitle.content = detailTitle;
+            if (ogDescription) ogDescription.content = shop.description;
+            if (ogUrl) ogUrl.content = detailUrl.href;
+            if (twitterTitle) twitterTitle.content = detailTitle;
+            if (twitterDescription) twitterDescription.content = shop.description;
             if (shopNameElement) shopNameElement.textContent = shop.name;
             if (shopImageElement) {
                 shopImageElement.src = shop.image_url || 'images/shop_placeholder.png';
