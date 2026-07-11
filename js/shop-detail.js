@@ -1,112 +1,147 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Shop detail page DOM fully loaded and parsed.");
+    const elements = {
+        name: document.getElementById('shop-name'),
+        image: document.getElementById('shop-image'),
+        description: document.getElementById('shop-description'),
+        address: document.getElementById('shop-address'),
+        tags: document.getElementById('shop-tags'),
+        website: document.getElementById('shop-website'),
+        individualSection: document.getElementById('shop-individuals-container'),
+        individualList: document.getElementById('individuals-list'),
+        metaDescription: document.getElementById('meta-description'),
+        metaRobots: document.getElementById('meta-robots'),
+        canonical: document.getElementById('canonical-url'),
+        ogTitle: document.getElementById('og-title'),
+        ogDescription: document.getElementById('og-description'),
+        ogUrl: document.getElementById('og-url'),
+        twitterTitle: document.getElementById('twitter-title'),
+        twitterDescription: document.getElementById('twitter-description')
+    };
 
-    // Get DOM elements
-    const shopNameElement = document.getElementById('shop-name');
-    const shopImageElement = document.getElementById('shop-image');
-    const shopDescriptionElement = document.getElementById('shop-description');
-    const shopAddressElement = document.getElementById('shop-address');
-    const shopTagsElement = document.getElementById('shop-tags');
-    const shopWebsiteElement = document.getElementById('shop-website');
-    const individualsListElement = document.getElementById('individuals-list');
-    const pageTitle = document.querySelector('title');
-    const metaDescription = document.getElementById('meta-description');
-    const metaRobots = document.getElementById('meta-robots');
-    const canonicalUrl = document.getElementById('canonical-url');
-    const ogTitle = document.getElementById('og-title');
-    const ogDescription = document.getElementById('og-description');
-    const ogUrl = document.getElementById('og-url');
-    const twitterTitle = document.getElementById('twitter-title');
-    const twitterDescription = document.getElementById('twitter-description');
+    const shopId = new URLSearchParams(window.location.search).get('id');
+    const shops = Array.isArray(window.allShopsData) ? window.allShopsData : [];
+    const individuals = Array.isArray(window.allIndividualsData) ? window.allIndividualsData : [];
+    const shop = shops.find((item) => item.id === shopId);
 
-    // Get shop ID from URL query parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const shopId = urlParams.get('id');
+    function showError(message) {
+        elements.metaRobots?.setAttribute('content', 'noindex, follow');
+        if (elements.name) elements.name.textContent = message;
+        if (elements.description) elements.description.textContent = '店舗一覧からもう一度お選びください。';
+    }
+
+    function renderTags(tags) {
+        if (!elements.tags) return;
+        elements.tags.textContent = '';
+        (Array.isArray(tags) ? tags : []).forEach((tag) => {
+            const item = document.createElement('span');
+            item.textContent = tag;
+            elements.tags.appendChild(item);
+        });
+    }
+
+    function renderWebsite(url) {
+        if (!elements.website) return;
+        elements.website.textContent = '';
+        if (!url) {
+            elements.website.textContent = '公式サイトの登録はありません。';
+            return;
+        }
+
+        const link = document.createElement('a');
+        link.className = 'primary-button';
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = '公式サイトを見る ↗';
+        elements.website.appendChild(link);
+    }
+
+    function renderIndividuals() {
+        const publishedIndividuals = individuals.filter((individual) => (
+            individual.shop_id === shopId && individual.published === true
+        ));
+
+        if (!publishedIndividuals.length || !elements.individualSection || !elements.individualList) return;
+
+        elements.individualList.textContent = '';
+        publishedIndividuals.forEach((individual) => {
+            const card = document.createElement('article');
+            card.className = 'individual-card';
+
+            const image = document.createElement('img');
+            image.src = individual.image_url || 'images/individual_placeholder.png';
+            image.alt = individual.name;
+            image.loading = 'lazy';
+
+            const heading = document.createElement('h3');
+            heading.textContent = individual.name;
+
+            const bio = document.createElement('p');
+            bio.textContent = individual.bio || '';
+
+            card.append(image, heading, bio);
+            elements.individualList.appendChild(card);
+        });
+
+        elements.individualSection.hidden = false;
+    }
+
+    function addStructuredData() {
+        const data = {
+            '@context': 'https://schema.org',
+            '@type': 'LocalBusiness',
+            name: shop.name,
+            description: shop.description,
+            url: window.location.href,
+            address: {
+                '@type': 'PostalAddress',
+                addressLocality: shop.address_general,
+                addressCountry: 'JP'
+            }
+        };
+        if (shop.website_url) data.sameAs = shop.website_url;
+        if (shop.image_url) data.image = new URL(shop.image_url, document.baseURI).href;
+
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(data);
+        document.head.appendChild(script);
+    }
 
     if (!shopId) {
-        if (metaRobots) metaRobots.content = 'noindex, follow';
-        if (shopNameElement) shopNameElement.textContent = 'お店のIDが見つかりません。';
-        console.error("Shop ID not found in URL parameters.");
+        showError('お店のIDが見つかりません。');
         return;
     }
 
-    function displayShopDetails() {
-        try {
-            // Use global variables injected by Jekyll (Liquid) in the HTML
-            const allShops = window.allShopsData;
-            const allIndividuals = window.allIndividualsData;
-
-            if (!allShops || !allIndividuals) {
-                throw new Error("Data not loaded properly from global variables.");
-            }
-
-            const shop = allShops.find(s => s.id === shopId);
-
-            if (!shop) {
-                if (metaRobots) metaRobots.content = 'noindex, follow';
-                if (shopNameElement) shopNameElement.textContent = 'お店が見つかりません。';
-                console.error("Shop not found for ID:", shopId);
-                return;
-            }
-
-            // Populate shop details
-            const detailTitle = `${shop.name} - お店の詳細 | くすぐりフェチ専科`;
-            const detailUrl = new URL(window.location.pathname, window.location.origin);
-            detailUrl.searchParams.set('id', shop.id);
-
-            if (pageTitle) pageTitle.textContent = detailTitle;
-            if (metaRobots) metaRobots.content = 'index, follow';
-            if (metaDescription) metaDescription.content = shop.description;
-            if (canonicalUrl) canonicalUrl.href = detailUrl.href;
-            if (ogTitle) ogTitle.content = detailTitle;
-            if (ogDescription) ogDescription.content = shop.description;
-            if (ogUrl) ogUrl.content = detailUrl.href;
-            if (twitterTitle) twitterTitle.content = detailTitle;
-            if (twitterDescription) twitterDescription.content = shop.description;
-            if (shopNameElement) shopNameElement.textContent = shop.name;
-            if (shopImageElement) {
-                shopImageElement.src = shop.image_url || 'images/shop_placeholder.png';
-                shopImageElement.alt = shop.name;
-            }
-            if (shopDescriptionElement) shopDescriptionElement.textContent = shop.description;
-            if (shopAddressElement) shopAddressElement.textContent = `場所: ${shop.address_general}`;
-            if (shopTagsElement) shopTagsElement.textContent = `タグ: ${Array.isArray(shop.tags) ? shop.tags.join(', ') : 'なし'}`;
-            if (shopWebsiteElement) {
-                if (shop.website_url) {
-                    shopWebsiteElement.innerHTML = `<a href="${shop.website_url}" target="_blank" rel="noopener noreferrer">ウェブサイトを見る</a>`;
-                } else {
-                    shopWebsiteElement.innerHTML = 'ウェブサイトなし';
-                }
-            }
-
-            // Filter and display individuals for this shop
-            const shopIndividuals = allIndividuals.filter(ind => ind.shop_id === shopId);
-            if (individualsListElement) {
-                individualsListElement.innerHTML = ''; // Clear loading message
-                if (shopIndividuals.length > 0) {
-                    shopIndividuals.forEach(individual => {
-                        const individualCard = document.createElement('div');
-                        individualCard.className = 'individual-card'; // Reuse class from main.js for styling
-                        individualCard.innerHTML = `
-                            <h3>${individual.name}</h3>
-                            <img src="${individual.image_url || 'images/individual_placeholder.png'}" alt="${individual.name}" style="width:100%;max-width:200px;">
-                            <p>${individual.bio}</p>
-                            <div class="tags">タグ: ${Array.isArray(individual.tags) ? individual.tags.join(', ') : 'なし'}</div>
-                        `;
-                        individualsListElement.appendChild(individualCard);
-                    });
-                } else {
-                    individualsListElement.innerHTML = '<p>このお店に所属している女の子の情報はまだありません。</p>';
-                }
-            }
-            console.log("Shop details and individuals rendered for shop ID:", shopId);
-
-        } catch (error) {
-            console.error("Failed to display shop details:", error);
-            if (shopNameElement) shopNameElement.textContent = '情報の読み込みに失敗しました。';
-            if (individualsListElement) individualsListElement.innerHTML = `<p>情報の読み込みに失敗しました。詳細: ${error.message}</p>`;
-        }
+    if (!shop) {
+        showError('お店が見つかりません。');
+        return;
     }
 
-    displayShopDetails();
+    const detailTitle = `${shop.name} - お店の詳細 | くすぐりフェチ専科`;
+    const detailUrl = new URL(window.location.pathname, window.location.origin);
+    detailUrl.searchParams.set('id', shop.id);
+
+    document.title = detailTitle;
+    elements.metaDescription?.setAttribute('content', shop.description);
+    elements.metaRobots?.setAttribute('content', 'index, follow');
+    elements.canonical?.setAttribute('href', detailUrl.href);
+    elements.ogTitle?.setAttribute('content', detailTitle);
+    elements.ogDescription?.setAttribute('content', shop.description);
+    elements.ogUrl?.setAttribute('content', detailUrl.href);
+    elements.twitterTitle?.setAttribute('content', detailTitle);
+    elements.twitterDescription?.setAttribute('content', shop.description);
+
+    if (elements.name) elements.name.textContent = shop.name;
+    if (elements.description) elements.description.textContent = shop.description;
+    if (elements.address) elements.address.textContent = shop.address_general;
+    if (elements.image) {
+        elements.image.src = shop.image_url || 'images/shop_placeholder.png';
+        elements.image.alt = shop.name;
+    }
+
+    renderTags(shop.tags);
+    renderWebsite(shop.website_url);
+    renderIndividuals();
+    addStructuredData();
 });

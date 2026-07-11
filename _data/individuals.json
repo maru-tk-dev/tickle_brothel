@@ -2,6 +2,7 @@
   {
     "id": "ind001",
     "shop_id": "shop001",
+    "published": false,
     "name": "さくら",
     "bio": "仮。管理人の感想追加していく予定",
     "tags": ["初心者向け", "脇", "足裏"],
