@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360" role="img" aria-labelledby="title">
+  <title id="title">高田馬場ナースクリニック 店名カード</title>
+  <rect width="600" height="360" rx="24" fill="#fff1f5"/>
+  <rect x="24" y="24" width="552" height="312" rx="16" fill="none" stroke="#e8bdcd" stroke-width="2"/>
+  <g fill="#714759" text-anchor="middle" font-family="'Noto Sans JP', 'Yu Gothic', sans-serif">
+    <text x="300" y="156" font-size="30">高田馬場</text>
+    <text x="300" y="218" font-size="42" font-weight="700">ナースクリニック</text>
+  </g>
+</svg>

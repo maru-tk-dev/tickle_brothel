@@ -1,0 +1,6 @@
+interface:
+  display_name: "Jev Review"
+  short_description: "Jevでファイル全文と差分を選別し、要確認の変更をAIで詳細レビュー"
+  default_prompt: "$jev-review を使って、変更されたコードをレビューしてください。"
+policy:
+  allow_implicit_invocation: true
